@@ -1,0 +1,66 @@
+<div class="login-container">
+
+  <form [formGroup]="LoginForm"
+        (ngSubmit)="onSubmit()"
+        class="login-card">
+
+    <h2 class="title">Login</h2>
+
+    <!-- Email -->
+    <div class="form-group">
+
+      <label>User Name</label>
+
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Enter username"
+      />
+
+      <!-- Only ONE error shows -->
+      <div class="error"
+           *ngIf="LoginForm.get('email')?.touched">
+
+        <span *ngIf="LoginForm.get('email')?.errors?.['required']">
+          Email is required
+        </span>
+
+        <span *ngIf="!LoginForm.get('email')?.errors?.['required'] &&
+                      LoginForm.get('email')?.errors?.['email']">
+          Invalid email format
+        </span>
+
+      </div>
+
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+
+      <label>Password</label>
+
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Enter password"
+      />
+
+      <div class="error"
+           *ngIf="LoginForm.get('password')?.touched">
+
+        <span *ngIf="LoginForm.get('password')?.errors?.['required']">
+          Password is required
+        </span>
+
+      </div>
+
+    </div>
+
+    <!-- Button -->
+    <button type="submit" class="login-btn">
+      Login
+    </button>
+
+  </form>
+
+</div>
