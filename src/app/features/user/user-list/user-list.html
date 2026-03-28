@@ -1,1 +1,74 @@
-<p>user-list works!</p>
+<div class="user-list-page">
+  <div class="user-list__topbar">
+    <!-- <h2 class="user-list__title">Users</h2> -->
+
+    <div class="user-list__search">
+      <input
+        type="text"
+        class="user-list__search-input"
+        placeholder="Search by user name..."
+        name="searchfilter"
+        (input)="filterdata()"
+        [(ngModel)]="searchvalue"
+      />
+      <i class="fa fa-search user-list__search-icon"></i>
+    </div>
+  </div>
+
+  <div class="user-list__table-wrapper">
+    <table class="user-list__table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Role</th>
+          <th>Contact</th>
+
+          @if (permissions?.canEdit || permissions?.canDelete) {
+            <th>Actions</th>
+          }
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (user of filteredUsers(); track user.id) {
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.userName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.userDetails?.gender || '-' }}</td>
+            <td>{{ user.roleName }}</td>
+            <td>{{ user.userDetails?.phoneNumber || '-' }}</td>
+
+            @if (permissions?.canEdit || permissions?.canDelete) {
+              <td class="user-list__action-group">
+                @if (permissions?.canEdit) {
+                  <button class="user-list__table-btn user-list__table-btn--edit">
+                    Edit
+                  </button>
+                }
+
+                @if (permissions?.canDelete) {
+                  <button class="user-list__table-btn user-list__table-btn--delete">
+                    Delete
+                  </button>
+                }
+              </td>
+            }
+          </tr>
+        } @empty {
+          <tr>
+            <td
+              class="user-list__empty"
+              [attr.colspan]="(permissions?.canEdit || permissions?.canDelete) ? 7 : 6"
+            >
+              No users found
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

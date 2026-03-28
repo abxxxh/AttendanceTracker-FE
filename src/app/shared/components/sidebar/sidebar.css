@@ -1,0 +1,165 @@
+.app-sidebar {
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(180deg, #111827 0%, #1f2937 100%);
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/* brand */
+.app-sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 8px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.app-sidebar__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.app-sidebar__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.app-sidebar__subtitle {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* nav */
+.app-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+  flex: 1;
+}
+
+.app-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #d1d5db;
+  transition: all 0.25s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.app-sidebar__link i {
+  width: 18px;
+  font-size: 15px;
+}
+
+.app-sidebar__link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.app-sidebar__link.active {
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
+/* bottom section */
+.app-sidebar__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* advanced attendance button */
+.app-sidebar__attendance-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0f766e, #06b6d4);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(6, 182, 212, 0.25);
+  transition: all 0.25s ease;
+}
+
+.app-sidebar__attendance-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(6, 182, 212, 0.35);
+}
+
+.app-sidebar__attendance-icon {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.app-sidebar__attendance-btn h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.app-sidebar__attendance-btn p {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.active-attendance {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* logout */
+.app-sidebar__logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fca5a5;
+  padding: 12px 14px;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.app-sidebar__logout:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ffffff;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .app-sidebar {
+    width: 220px;
+  }
+}

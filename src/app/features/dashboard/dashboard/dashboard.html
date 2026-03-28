@@ -1,1 +1,31 @@
-<h1>Dashboard</h1>
+<div class="dashboard-layout">
+  <!-- <app-sidebar></app-sidebar> -->
+
+  <div class="dashboard-layout__main">
+    <h2 class="dashboard-layout__welcome">Hey! {{ name || 'User' }}</h2>
+
+    <div class="dashboard-layout__actions">
+      @if (permissions?.canAddRole) {
+        <button class="dashboard-layout__btn dashboard-layout__btn--blue">
+          Add Role
+        </button>
+      }
+
+      @if (permissions?.canAddUser) {
+        <button class="dashboard-layout__btn dashboard-layout__btn--green">
+          Add User
+        </button>
+      }
+
+      @if (permissions?.canAddTimeSheet) {
+        <button class="dashboard-layout__btn dashboard-layout__btn--cyan">
+          Timesheet
+        </button>
+      }
+    </div>
+
+    <div class="dashboard-layout__content">
+      <app-user-list></app-user-list>
+    </div>
+  </div>
+</div>
