@@ -45,13 +45,13 @@
             @if (permissions?.canEdit || permissions?.canDelete) {
               <td class="user-list__action-group">
                 @if (permissions?.canEdit) {
-                  <button class="user-list__table-btn user-list__table-btn--edit">
+                  <button (click)="editUser(user.id)" class="user-list__table-btn user-list__table-btn--edit">
                     Edit
                   </button>
                 }
 
                 @if (permissions?.canDelete) {
-                  <button class="user-list__table-btn user-list__table-btn--delete">
+                  <button  class="user-list__table-btn user-list__table-btn--delete">
                     Delete
                   </button>
                 }

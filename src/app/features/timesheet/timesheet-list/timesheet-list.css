@@ -1,0 +1,76 @@
+.timesheet-container {
+  padding: 24px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.add-btn {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.table-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #f3f4f6;
+}
+
+th,
+td {
+  padding: 16px;
+  text-align: left;
+  border: 1px solid #e5e7eb;
+}
+
+.view-btn,
+.edit-btn,
+.delete-btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.view-btn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.edit-btn {
+  background-color: #facc15;
+  color: black;
+}
+
+.delete-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.error-text {
+  color: red;
+  margin-bottom: 12px;
+}

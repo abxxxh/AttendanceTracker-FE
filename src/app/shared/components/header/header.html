@@ -1,1 +1,10 @@
-<p>header works!</p>
+<header class="header">
+  <div class="header__left">
+    <h1 class="header__title">{{ title }}</h1>
+  </div>
+
+  <div class="header__right">
+    <span class="header__user">Welcome, {{ userName }}</span>
+    <button class="header__logout" (click)="logout()">Logout</button>
+  </div>
+</header>

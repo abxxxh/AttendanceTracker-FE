@@ -1,54 +1,23 @@
-<div class="app-sidebar">
-  <div class="app-sidebar__brand">
-    <div class="app-sidebar__logo">
-      <i class="fa-solid fa-layer-group"></i>
-    </div>
-    <div>
-      <h2 class="app-sidebar__title">Admin Panel</h2>
-      <p class="app-sidebar__subtitle">Management System</p>
-    </div>
-  </div>
+<div class="sidebar">
+  <!-- <div class="sidebar__logo">
+    Attendance Tracker
+  </div> -->
 
-  <nav class="app-sidebar__nav">
-    <a routerLink="/dashboard" routerLinkActive="active" class="app-sidebar__link">
-      <i class="fa-solid fa-house"></i>
-      <span>Dashboard</span>
+  <nav class="sidebar__nav">
+    <a routerLink="/dashboard" routerLinkActive="active" class="sidebar__link">
+      Dashboard
     </a>
 
-    <a routerLink="/users" routerLinkActive="active" class="app-sidebar__link">
-      <i class="fa-solid fa-users"></i>
-      <span>Users</span>
+    <a routerLink="/roles/add" routerLinkActive="active" class="sidebar__link">
+      Add Role
     </a>
 
-    <a routerLink="/roles" routerLinkActive="active" class="app-sidebar__link">
-      <i class="fa-solid fa-user-shield"></i>
-      <span>Roles</span>
+    <a routerLink="/users/add" routerLinkActive="active" class="sidebar__link">
+      Add User
     </a>
 
-    <a routerLink="/profile" routerLinkActive="active" class="app-sidebar__link">
-      <i class="fa-solid fa-id-badge"></i>
-      <span>Profile</span>
+    <a routerLink="/timesheet" routerLinkActive="active" class="sidebar__link">
+      Timesheet
     </a>
   </nav>
-
-  <div class="app-sidebar__bottom">
-    <a
-      routerLink="/attendance"
-      routerLinkActive="active-attendance"
-      class="app-sidebar__attendance-btn"
-    >
-      <div class="app-sidebar__attendance-icon">
-        <i class="fa-solid fa-power-off"></i>
-      </div>
-      <div>
-        <h4>Attendance</h4>
-        <p>Mark & manage attendance</p>
-      </div>
-    </a>
-
-    <a routerLink="/login" class="app-sidebar__logout">
-      <i class="fa-solid fa-right-from-bracket"></i>
-      <span>Logout</span>
-    </a>
-  </div>
 </div>

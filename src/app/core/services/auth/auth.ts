@@ -25,10 +25,13 @@ localStorage.setItem('Token',response.result.token)
 localStorage.setItem('Email',response.result.email)
 localStorage.setItem('Role',response.result.roleName)
 localStorage.setItem('UserName',response.result.userName)
+localStorage.setItem('UserId', response.result.id.toString());
 
 
 }
-
+getUserId(): number {
+  return Number(localStorage.getItem('UserId'));
+}
 
 getToken():string|null{
   return localStorage.getItem('Token');
@@ -48,6 +51,7 @@ localStorage.removeItem('Token')
 localStorage.removeItem('Email')
 localStorage.removeItem('Role')
 localStorage.removeItem('UserName')
+localStorage.removeItem('UserId');
 }
 
 getPermission():PermissionModel{

@@ -1,0 +1,41 @@
+<div class="timesheet-container">
+  <h1>Admin</h1>
+
+  <button class="add-btn" (click)="addTimesheet()">Add</button>
+
+  @if (errorMessage) {
+    <p class="error-text">{{ errorMessage }}</p>
+  }
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>UserID</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Course</th>
+          <th>RecordedBy</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (item of timesheets(); track item.attendanceID) {
+          <tr>
+            <td>{{ item.userName || item.userId }}</td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.course }}</td>
+            <td>{{ item.recordedByName }}</td>
+            <td>
+              <button class="view-btn" (click)="viewTimesheet(item.attendanceID)">View</button>
+              <button class="edit-btn" (click)="editTimesheet(item.attendanceID)">Edit</button>
+              <button class="delete-btn" (click)="deleteTimesheet(item.attendanceID)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

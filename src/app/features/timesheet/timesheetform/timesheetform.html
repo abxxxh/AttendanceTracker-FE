@@ -1,0 +1,77 @@
+<div class="timesheet-form-container">
+  <h2>Add Timesheet</h2>
+
+  <form [formGroup]="timesheetForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label>User ID</label>
+      <input
+        type="number"
+        formControlName="userId"
+        placeholder="Enter user id"
+        [readonly]="isStudent"
+      />
+      @if (userId?.touched && userId?.invalid) {
+        <small class="error">User ID is required</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Date</label>
+      <input type="date" formControlName="date" />
+      @if (date?.touched && date?.invalid) {
+        <small class="error">Date is required</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <select formControlName="status">
+        <option value="">Select status</option>
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+        <option value="Leave">Leave</option>
+      </select>
+      @if (status?.touched && status?.invalid) {
+        <small class="error">Status is required</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Course</label>
+      <input
+        type="text"
+        formControlName="course"
+        placeholder="Enter course"
+      />
+      @if (course?.touched && course?.invalid) {
+        <small class="error">Course is required</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Recorded By</label>
+      <input
+        type="number"
+        formControlName="recordedBy"
+        placeholder="Enter recorded by user id"
+        [readonly]="isStudent || isStaff"
+      />
+      @if (recordedBy?.touched && recordedBy?.invalid) {
+        <small class="error">Recorded By is required</small>
+      }
+    </div>
+
+    <button type="submit" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Saving...' : 'Save' }}
+    </button>
+  </form>
+
+  @if (successMessage) {
+    <p class="success">{{ successMessage }}</p>
+  }
+
+  @if (errorMessage) {
+    <p class="error-text">{{ errorMessage }}</p>
+  }
+</div>
