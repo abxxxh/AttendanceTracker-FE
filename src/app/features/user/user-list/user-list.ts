@@ -54,6 +54,26 @@ export class UserList implements OnInit {
 editUser(id: number): void {
     this.router.navigate(['/user-edit', id]);
   }
+  deleteUser(id: number): void {
+    const confirmDelete = confirm('Are you sure you want to delete this user?');
+    if (!confirmDelete) return;
+
+    this.user.deleteUser(id).subscribe({
+      next: () => {
+        const updatedUsers = this.userDetailss().filter((u) => u.id !== id);
+        this.userDetailss.set(updatedUsers);
+
+        this.filterdata(); // keeps search result updated too
+        this.cdr.detectChanges();
+
+        alert('User deleted successfully');
+      },
+      error: (e) => {
+        console.log(e, 'Delete user error');
+        alert('Failed to delete user');
+      },
+    });
+  }
   loadAllUsersData(): void {
     this.user.getAllUsers().subscribe({
       next: (d) => {

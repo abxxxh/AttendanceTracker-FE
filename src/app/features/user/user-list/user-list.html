@@ -51,7 +51,7 @@
                 }
 
                 @if (permissions?.canDelete) {
-                  <button  class="user-list__table-btn user-list__table-btn--delete">
+                  <button  (click)="deleteUser(user.id)"  class="user-list__table-btn user-list__table-btn--delete">
                     Delete
                   </button>
                 }

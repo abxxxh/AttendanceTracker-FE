@@ -1,23 +1,31 @@
 <div class="sidebar">
-  <!-- <div class="sidebar__logo">
-    Attendance Tracker
-  </div> -->
-
   <nav class="sidebar__nav">
+    
+    <!-- Dashboard: admin, staff, student -->
     <a routerLink="/dashboard" routerLinkActive="active" class="sidebar__link">
       Dashboard
     </a>
 
-    <a routerLink="/roles/add" routerLinkActive="active" class="sidebar__link">
-      Add Role
-    </a>
+    <!-- Add Role: only admin -->
+    @if (isAdmin()) {
+      <a routerLink="/roles/add" routerLinkActive="active" class="sidebar__link">
+        Add Role
+      </a>
+    }
 
-    <a routerLink="/users/add" routerLinkActive="active" class="sidebar__link">
-      Add User
-    </a>
+    <!-- Add User: only staff -->
+    @if (isStaff()) {
+      <a routerLink="/users/add" routerLinkActive="active" class="sidebar__link">
+        Add User
+      </a>
+    }
 
-    <a routerLink="/timesheet" routerLinkActive="active" class="sidebar__link">
-      Timesheet
-    </a>
+    <!-- Timesheet: staff and student -->
+    @if (isStaff() || isStudent()) {
+      <a routerLink="/timesheet" routerLinkActive="active" class="sidebar__link">
+        Timesheet
+      </a>
+    }
+
   </nav>
 </div>
