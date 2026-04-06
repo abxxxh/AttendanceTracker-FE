@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Role } from '../role';
-// import { RoleService } from '../role';
 
 @Component({
   selector: 'app-role-form',
@@ -17,24 +16,37 @@ import { Role } from '../role';
   templateUrl: './role-form.html',
   styleUrl: './role-form.css',
 })
-export class RoleForm {
-  roleForm: FormGroup;
+export class RoleForm implements OnInit {
+
+  roleForm!: FormGroup;
   isSubmitting = false;
   successMessage = '';
   errorMessage = '';
+
+  // ✅ Only 3 roles allowed
+  roleOptions: string[] = [
+    'Admin',
+    'Staff',
+    'Student'
+  ];
 
   constructor(
     private fb: FormBuilder,
     private roleService: Role,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+
     this.roleForm = this.fb.group({
-      roleName: ['', [Validators.required, Validators.minLength(3)]],
+      roleName: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(5)]],
     });
+
   }
 
   onSubmit(): void {
+
     this.successMessage = '';
     this.errorMessage = '';
 
@@ -45,25 +57,35 @@ export class RoleForm {
 
     this.isSubmitting = true;
 
+    // ✅ using addRole()
     this.roleService.addRole(this.roleForm.value).subscribe({
+
       next: (response) => {
+
         console.log('Role added successfully', response);
+
         this.successMessage = 'Role added successfully!';
+        this.isSubmitting = false;
+
         this.roleForm.reset();
 
         setTimeout(() => {
           this.router.navigate(['/dashboard']);
         }, 1000);
+
       },
+
       error: (error) => {
+
         console.error('Error adding role', error);
+
         this.errorMessage = 'Failed to add role.';
         this.isSubmitting = false;
-      },
-      complete: () => {
-        this.isSubmitting = false;
-      },
+
+      }
+
     });
+
   }
 
   get roleName() {
@@ -73,4 +95,5 @@ export class RoleForm {
   get description() {
     return this.roleForm.get('description');
   }
+
 }

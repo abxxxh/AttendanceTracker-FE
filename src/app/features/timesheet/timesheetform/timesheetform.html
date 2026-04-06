@@ -1,16 +1,29 @@
 <div class="timesheet-form-container">
-  <h2>Add Timesheet</h2>
+  <h2>{{ pageTitle }}</h2>
 
   <form [formGroup]="timesheetForm" (ngSubmit)="onSubmit()">
-
     <div class="form-group">
-      <label>User ID</label>
-      <input
-        type="number"
-        formControlName="userId"
-        placeholder="Enter user id"
-        [readonly]="isStudent"
-      />
+      <label>User</label>
+
+      @if (showUserDropdown) {
+        <select formControlName="userId">
+          <option value="">Select User</option>
+
+          @for (user of users; track user.id) {
+            <option [value]="user.id">
+              {{ user.userName }} ({{ user.roleName }})
+            </option>
+          }
+        </select>
+      } @else {
+        <input
+          type="number"
+          formControlName="userId"
+          placeholder="Enter user id"
+          [readonly]="isStudent"
+        />
+      }
+
       @if (userId?.touched && userId?.invalid) {
         <small class="error">User ID is required</small>
       }
@@ -19,6 +32,7 @@
     <div class="form-group">
       <label>Date</label>
       <input type="date" formControlName="date" />
+
       @if (date?.touched && date?.invalid) {
         <small class="error">Date is required</small>
       }
@@ -32,6 +46,7 @@
         <option value="Absent">Absent</option>
         <option value="Leave">Leave</option>
       </select>
+
       @if (status?.touched && status?.invalid) {
         <small class="error">Status is required</small>
       }
@@ -39,11 +54,16 @@
 
     <div class="form-group">
       <label>Course</label>
-      <input
-        type="text"
-        formControlName="course"
-        placeholder="Enter course"
-      />
+      <select formControlName="course">
+        <option value="">Select Course</option>
+
+        @for (courseItem of courses; track courseItem) {
+          <option [value]="courseItem">
+            {{ courseItem }}
+          </option>
+        }
+      </select>
+
       @if (course?.touched && course?.invalid) {
         <small class="error">Course is required</small>
       }
@@ -54,17 +74,20 @@
       <input
         type="number"
         formControlName="recordedBy"
-        placeholder="Enter recorded by user id"
-        [readonly]="isStudent || isStaff"
+        placeholder="Logged in user id"
+        readonly
       />
+
       @if (recordedBy?.touched && recordedBy?.invalid) {
         <small class="error">Recorded By is required</small>
       }
     </div>
 
-    <button type="submit" [disabled]="isSubmitting">
-      {{ isSubmitting ? 'Saving...' : 'Save' }}
-    </button>
+    @if (!isViewMode) {
+      <button type="submit" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Saving...' : submitButtonText }}
+      </button>
+    }
   </form>
 
   @if (successMessage) {

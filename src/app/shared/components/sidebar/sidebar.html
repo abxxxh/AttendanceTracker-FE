@@ -1,31 +1,31 @@
 <div class="sidebar">
   <nav class="sidebar__nav">
     
-    <!-- Dashboard: admin, staff, student -->
     <a routerLink="/dashboard" routerLinkActive="active" class="sidebar__link">
       Dashboard
     </a>
 
-    <!-- Add Role: only admin -->
     @if (isAdmin()) {
       <a routerLink="/roles/add" routerLinkActive="active" class="sidebar__link">
         Add Role
       </a>
     }
 
-    <!-- Add User: only staff -->
     @if (isStaff()) {
       <a routerLink="/users/add" routerLinkActive="active" class="sidebar__link">
         Add User
       </a>
     }
 
-    <!-- Timesheet: staff and student -->
     @if (isStaff() || isStudent()) {
       <a routerLink="/timesheet" routerLinkActive="active" class="sidebar__link">
         Timesheet
       </a>
     }
+
+    <a routerLink="/profile" routerLinkActive="active" class="sidebar__link">
+      Profile
+    </a>
 
   </nav>
 </div>

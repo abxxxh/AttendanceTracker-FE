@@ -19,12 +19,16 @@ export class UserList implements OnInit {
   permissions!: PermissionModel;
   userDetailss = signal<User[]>([]);
   filteredUsers = signal<User[]>([]);
-  searchvalue = signal('');
+  searchvalue = '';
+
+  selectedUser: User | null = null;
+  showViewPopup = false;
 
   constructor(
     private user: UserService,
     private auth: Auth,
-    private cdr: ChangeDetectorRef, private router: Router
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +37,7 @@ export class UserList implements OnInit {
   }
 
   filterdata(): void {
-    const search = this.searchvalue().trim().toLowerCase();
+    const search = this.searchvalue.trim().toLowerCase();
 
     if (!search) {
       this.filteredUsers.set(this.userDetailss());
@@ -45,15 +49,28 @@ export class UserList implements OnInit {
         u.userName?.toLowerCase().includes(search) ||
         u.email?.toLowerCase().includes(search) ||
         u.roleName?.toLowerCase().includes(search) ||
-        u.userDetails?.fullName?.toLowerCase().includes(search)
+        u.userDetails?.fullName?.toLowerCase().includes(search) ||
+        u.userDetails?.department?.toLowerCase().includes(search)
     );
 
     this.filteredUsers.set(filtered);
     this.cdr.detectChanges();
   }
-editUser(id: number): void {
+
+  viewUser(user: User): void {
+    this.selectedUser = user;
+    this.showViewPopup = true;
+  }
+
+  closePopup(): void {
+    this.selectedUser = null;
+    this.showViewPopup = false;
+  }
+
+  editUser(id: number): void {
     this.router.navigate(['/user-edit', id]);
   }
+
   deleteUser(id: number): void {
     const confirmDelete = confirm('Are you sure you want to delete this user?');
     if (!confirmDelete) return;
@@ -62,10 +79,8 @@ editUser(id: number): void {
       next: () => {
         const updatedUsers = this.userDetailss().filter((u) => u.id !== id);
         this.userDetailss.set(updatedUsers);
-
-        this.filterdata(); // keeps search result updated too
+        this.filterdata();
         this.cdr.detectChanges();
-
         alert('User deleted successfully');
       },
       error: (e) => {
@@ -74,32 +89,37 @@ editUser(id: number): void {
       },
     });
   }
+
   loadAllUsersData(): void {
     this.user.getAllUsers().subscribe({
       next: (d) => {
         console.log(d, 'From User List get all');
 
-        const role = this.auth.getRole();
+        const role = this.auth.getRole()?.trim().toLowerCase();
         const loginUserId = this.auth.getUserId();
 
-        let users: User[] = d.result;
+        let users: User[] = d.result || [];
 
-        if (role === 'Admin') {
+        if (role === 'admin') {
           users = d.result;
-        } else if (role === 'Student') {
+        } else if (role === 'student') {
           users = d.result.filter((u: User) => u.id === loginUserId);
-        } else if (role === 'Staff') {
-          // Temporary staff filter
-          // This shows only students in the same department as logged-in staff
-          // Change this logic later if you get staffId / mentorId from backend
-
+        } else if (role === 'staff' || role === 'faculty') {
           const loggedInStaff = d.result.find((u: User) => u.id === loginUserId);
 
-          users = d.result.filter(
-            (u: User) =>
-              u.roleName === 'Student' &&
-              u.userDetails?.department === loggedInStaff?.userDetails?.department
-          );
+          const staffDepartment =
+            loggedInStaff?.userDetails?.department?.trim().toLowerCase() || '';
+
+          users = d.result.filter((u: User) => {
+            const userRole = u.roleName?.trim().toLowerCase();
+            const userDepartment =
+              u.userDetails?.department?.trim().toLowerCase() || '';
+
+            return (
+              u.id === loginUserId ||
+              (userRole === 'student' && userDepartment === staffDepartment)
+            );
+          });
         } else {
           users = [];
         }

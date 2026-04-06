@@ -1,0 +1,170 @@
+.profile-container {
+  padding: 24px;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  min-height: 100vh;
+  padding: 40px;
+}
+
+/* PROFILE CARD */
+
+.profile-card {
+  max-width: 700px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 26px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
+  animation: profileFade 0.3s ease;
+}
+
+/* SECTION HEADINGS */
+
+.profile-card h3 {
+  margin-top: 26px;
+  margin-bottom: 14px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  border-left: 5px solid #3b82f6;
+  padding-left: 12px;
+}
+
+/* PROFILE ROW */
+
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.profile-row:hover {
+  background: rgba(59, 130, 246, 0.05);
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 10px;
+}
+
+/* LABEL */
+
+.label {
+  font-weight: 700;
+  color: #334155;
+  min-width: 140px;
+}
+
+/* VALUE */
+
+.value {
+  color: #0f172a;
+  font-weight: 500;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* ERROR */
+
+.error-text {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.10);
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* PROFILE HEADER (Optional Enhancement) */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* AVATAR */
+
+.profile-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 26px;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+}
+
+/* NAME */
+
+.profile-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* ROLE BADGE */
+
+.profile-role {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+/* ANIMATION */
+
+@keyframes profileFade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 16px;
+  }
+
+  .profile-card {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .profile-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .value {
+    text-align: left;
+  }
+
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+  }
+
+  .profile-name {
+    font-size: 18px;
+  }
+}

@@ -8,7 +8,7 @@ import { RoleForm } from './features/role/role-form/role-form';
 import { UserForm } from './features/user/user-form/user-form';
 import { TimesheetList } from './features/timesheet/timesheet-list/timesheet-list';
 import { TimesheetForm } from './features/timesheet/timesheetform/timesheetform';
-// import { TimesheetForm } from './features/timesheet/timesheet-form/timesheet-form';
+import { Profile } from './features/profile/profile/profile';
 
 export const routes: Routes = [
   {
@@ -26,9 +26,13 @@ export const routes: Routes = [
       { path: 'dashboard', component: Dashboard },
       { path: 'roles/add', component: RoleForm },
       { path: 'users/add', component: UserForm },
-      { path: 'timesheet', component: TimesheetList },
       { path: 'user-edit/:id', component: UserForm },
+
+      { path: 'timesheet', component: TimesheetList },
       { path: 'timesheet/add', component: TimesheetForm },
+      { path: 'timesheet/edit/:id', component: TimesheetForm },
+      { path: 'timesheet/view/:id', component: TimesheetForm },
+      { path: 'profile', component: Profile },
     ],
   },
 ];

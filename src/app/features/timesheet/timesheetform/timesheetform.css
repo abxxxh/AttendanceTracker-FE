@@ -1,70 +1,132 @@
 .timesheet-form-container {
-  max-width: 500px;
+  max-width: 560px;
   margin: 40px auto;
-  background: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #111827;
+  margin-bottom: 26px;
+  color: #0f172a;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 label {
-  margin-bottom: 6px;
-  font-weight: 600;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 14px;
 }
 
 input,
 select {
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 14px;
   font-size: 14px;
+  color: #0f172a;
+  background: rgba(248, 250, 252, 0.95);
   outline: none;
+  box-sizing: border-box;
+  transition: all 0.22s ease;
+}
+
+input::placeholder {
+  color: #94a3b8;
 }
 
 input:focus,
 select:focus {
-  border-color: #2563eb;
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
 }
 
 button {
   width: 100%;
-  background: #2563eb;
+  margin-top: 8px;
+  padding: 14px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 8px;
+  border-radius: 14px;
   cursor: pointer;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
+  transition: all 0.22s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(37, 99, 235, 0.28);
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 button:disabled {
-  background: #94a3b8;
+  background: linear-gradient(135deg, #94a3b8, #64748b);
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
 .success {
-  color: green;
-  margin-top: 12px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(34, 197, 94, 0.10);
+  color: #15803d;
   text-align: center;
+  font-weight: 600;
 }
 
 .error-text,
 .error {
-  color: red;
-  margin-top: 4px;
+  margin-top: 5px;
+  color: #dc2626;
   text-align: left;
   font-size: 13px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .timesheet-form-container {
+    margin: 20px 12px;
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  input,
+  select {
+    padding: 12px 13px;
+    border-radius: 12px;
+  }
+
+  button {
+    padding: 13px;
+    border-radius: 12px;
+  }
 }

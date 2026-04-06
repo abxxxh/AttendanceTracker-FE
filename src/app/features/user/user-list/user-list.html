@@ -1,7 +1,5 @@
 <div class="user-list-page">
   <div class="user-list__topbar">
-    <!-- <h2 class="user-list__title">Users</h2> -->
-
     <div class="user-list__search">
       <input
         type="text"
@@ -25,10 +23,7 @@
           <th>Gender</th>
           <th>Role</th>
           <th>Contact</th>
-
-          @if (permissions?.canEdit || permissions?.canDelete) {
-            <th>Actions</th>
-          }
+          <th>Actions</th>
         </tr>
       </thead>
 
@@ -41,29 +36,39 @@
             <td>{{ user.userDetails?.gender || '-' }}</td>
             <td>{{ user.roleName }}</td>
             <td>{{ user.userDetails?.phoneNumber || '-' }}</td>
+            <td class="user-list__action-group">
+              <button
+                (click)="viewUser(user)"
+                class="user-list__table-btn user-list__table-btn--view"
+                type="button"
+              >
+                View
+              </button>
 
-            @if (permissions?.canEdit || permissions?.canDelete) {
-              <td class="user-list__action-group">
-                @if (permissions?.canEdit) {
-                  <button (click)="editUser(user.id)" class="user-list__table-btn user-list__table-btn--edit">
-                    Edit
-                  </button>
-                }
+              @if (permissions?.canEdit) {
+                <button
+                  (click)="editUser(user.id)"
+                  class="user-list__table-btn user-list__table-btn--edit"
+                  type="button"
+                >
+                  Edit
+                </button>
+              }
 
-                @if (permissions?.canDelete) {
-                  <button  (click)="deleteUser(user.id)"  class="user-list__table-btn user-list__table-btn--delete">
-                    Delete
-                  </button>
-                }
-              </td>
-            }
+              @if (permissions?.canDelete) {
+                <button
+                  (click)="deleteUser(user.id)"
+                  class="user-list__table-btn user-list__table-btn--delete"
+                  type="button"
+                >
+                  Delete
+                </button>
+              }
+            </td>
           </tr>
         } @empty {
           <tr>
-            <td
-              class="user-list__empty"
-              [attr.colspan]="(permissions?.canEdit || permissions?.canDelete) ? 7 : 6"
-            >
+            <td class="user-list__empty" colspan="7">
               No users found
             </td>
           </tr>
@@ -71,4 +76,84 @@
       </tbody>
     </table>
   </div>
+
+  @if (showViewPopup && selectedUser) {
+    <div class="user-popup-backdrop" (click)="closePopup()">
+      <div class="user-popup" (click)="$event.stopPropagation()">
+        <div class="user-popup__header">
+          <h3>User Details</h3>
+          <button class="user-popup__close" (click)="closePopup()" type="button">
+            ×
+          </button>
+        </div>
+
+        <div class="user-popup__body">
+          <div class="user-popup__row">
+            <span class="label">Id</span>
+            <span class="value">{{ selectedUser.id }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">User Name</span>
+            <span class="value">{{ selectedUser.userName }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">Email</span>
+            <span class="value">{{ selectedUser.email }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">Role</span>
+            <span class="value">{{ selectedUser.roleName }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">Full Name</span>
+            <span class="value">{{ selectedUser.userDetails?.fullName || '-' }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">Gender</span>
+            <span class="value">{{ selectedUser.userDetails?.gender || '-' }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">DOB</span>
+            <span class="value">{{ selectedUser.userDetails?.dob || '-' }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">Phone</span>
+            <span class="value">{{ selectedUser.userDetails?.phoneNumber || '-' }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">Address</span>
+            <span class="value">{{ selectedUser.userDetails?.address || '-' }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">Department</span>
+            <span class="value">{{ selectedUser.userDetails?.department || '-' }}</span>
+          </div>
+
+          <div class="user-popup__row">
+            <span class="label">Year</span>
+            <span class="value">{{ selectedUser.userDetails?.year || '-' }}</span>
+          </div>
+        </div>
+
+        <div class="user-popup__footer">
+          <button
+            class="user-list__table-btn user-list__table-btn--view"
+            (click)="closePopup()"
+            type="button"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </div>

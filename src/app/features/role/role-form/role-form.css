@@ -1,76 +1,100 @@
 .role-form-container {
-  max-width: 450px;
+  max-width: 500px;
   margin: 40px auto;
-  padding: 24px;
+  padding: 28px;
   background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
-h2 {
+.role-form-container h2 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #1e293b;
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
 }
+
+/* Form Group */
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
-label {
-  margin-bottom: 6px;
+.form-group label {
   font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
 }
 
-input,
-textarea {
+/* Inputs */
+
+.form-group input,
+.form-group textarea,
+.form-group select {
   padding: 10px 12px;
-  border: 1px solid #cbd5e1;
   border-radius: 8px;
+  border: 1px solid #ccc;
   font-size: 14px;
+  transition: 0.2s;
+}
+
+/* Focus */
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #3b82f6;
   outline: none;
 }
 
-input:focus,
-textarea:focus {
-  border-color: #2563eb;
-}
-
-textarea {
-  resize: vertical;
-}
+/* Button */
 
 button {
   width: 100%;
-  padding: 10px 14px;
-  background: #2563eb;
-  color: white;
+  padding: 12px;
+  background: #3b82f6;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 10px;
+  color: white;
   font-size: 15px;
   font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover {
+  background: #2563eb;
 }
 
 button:disabled {
-  background: #94a3b8;
+  background: #9ca3af;
   cursor: not-allowed;
 }
 
+/* Error */
+
 .error small {
-  color: red;
+  color: #dc2626;
+  font-size: 13px;
 }
 
+/* Success */
+
 .success {
-  margin-top: 12px;
-  color: green;
+  margin-top: 14px;
+  color: #16a34a;
+  font-weight: 600;
   text-align: center;
 }
 
+/* Error Text */
+
 .error-text {
-  margin-top: 12px;
-  color: red;
+  margin-top: 14px;
+  color: #dc2626;
+  font-weight: 600;
   text-align: center;
 }

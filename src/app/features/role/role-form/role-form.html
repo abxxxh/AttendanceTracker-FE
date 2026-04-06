@@ -2,29 +2,44 @@
   <h2>Add Role</h2>
 
   <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+
+    <!-- Role Name Dropdown -->
     <div class="form-group">
       <label for="roleName">Role Name</label>
-      <input
-        id="roleName"
-        type="text"
-        formControlName="roleName"
-        placeholder="Enter role name"
-      />
+
+      <select id="roleName" formControlName="roleName">
+
+        <option value="">Select Role</option>
+
+        @for (role of roleOptions; track role) {
+
+          <option [value]="role">
+            {{ role }}
+          </option>
+
+        }
+
+      </select>
 
       @if (roleName?.touched && roleName?.invalid) {
+
         <div class="error">
+
           @if (roleName?.errors?.['required']) {
             <small>Role name is required</small>
           }
-          @if (roleName?.errors?.['minlength']) {
-            <small>Role name must be at least 3 characters</small>
-          }
+
         </div>
+
       }
+
     </div>
 
+    <!-- Description -->
     <div class="form-group">
+
       <label for="description">Description</label>
+
       <textarea
         id="description"
         rows="4"
@@ -33,20 +48,29 @@
       ></textarea>
 
       @if (description?.touched && description?.invalid) {
+
         <div class="error">
+
           @if (description?.errors?.['required']) {
             <small>Description is required</small>
           }
+
           @if (description?.errors?.['minlength']) {
             <small>Description must be at least 5 characters</small>
           }
+
         </div>
+
       }
+
     </div>
 
     <button type="submit" [disabled]="isSubmitting">
+
       {{ isSubmitting ? 'Saving...' : 'Save Role' }}
+
     </button>
+
   </form>
 
   @if (successMessage) {
@@ -56,4 +80,5 @@
   @if (errorMessage) {
     <p class="error-text">{{ errorMessage }}</p>
   }
+
 </div>

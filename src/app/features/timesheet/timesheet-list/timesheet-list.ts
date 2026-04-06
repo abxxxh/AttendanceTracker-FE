@@ -18,6 +18,9 @@ export class TimesheetList implements OnInit {
   currentUserId: number | null = null;
   currentUserName: string | null = null;
 
+  showViewModal = false;
+  selectedTimesheet: any = null;
+
   constructor(
     private timesheetService: TimesheetService,
     private router: Router,
@@ -72,7 +75,21 @@ export class TimesheetList implements OnInit {
   }
 
   viewTimesheet(id: number): void {
-    this.router.navigate(['/timesheet/view', id]);
+    this.timesheetService.getTimesheetById(id).subscribe({
+      next: (response) => {
+        this.selectedTimesheet = response.result || response;
+        this.showViewModal = true;
+      },
+      error: (error) => {
+        console.error('Error loading timesheet details', error);
+        this.errorMessage = 'Failed to load timesheet details.';
+      },
+    });
+  }
+
+  closeViewModal(): void {
+    this.showViewModal = false;
+    this.selectedTimesheet = null;
   }
 
   editTimesheet(id: number): void {

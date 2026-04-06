@@ -28,7 +28,7 @@
 
     <div class="form-group">
       <label>Role</label>
-      <select formControlName="roleId">
+      <select formControlName="roleId" [disabled]="isEditMode">
         <option value="">Select role</option>
         <option value="4">Intern</option>
         <option value="2">Student</option>
@@ -105,9 +105,9 @@
       }
     </div>
 
-   <button type="submit" [disabled]="isSubmitting">
-  {{ isSubmitting ? (isEditMode ? 'Updating...' : 'Saving...') : (isEditMode ? 'Update User' : 'Save User') }}
-</button>
+    <button type="submit" [disabled]="isSubmitting">
+      {{ isSubmitting ? (isEditMode ? 'Updating...' : 'Saving...') : (isEditMode ? 'Update User' : 'Save User') }}
+    </button>
   </form>
 
   @if (successMessage) {

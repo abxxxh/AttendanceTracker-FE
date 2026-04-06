@@ -38,4 +38,46 @@
       </tbody>
     </table>
   </div>
+
+  @if (showViewModal && selectedTimesheet) {
+    <div class="modal-overlay" (click)="closeViewModal()">
+      <div class="modal-box" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Timesheet Details</h2>
+          <button class="close-btn" (click)="closeViewModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="detail-row">
+            <span class="label">User</span>
+            <span class="value">{{ selectedTimesheet.userName || selectedTimesheet.userId }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Date</span>
+            <span class="value">{{ selectedTimesheet.date }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Status</span>
+            <span class="value">{{ selectedTimesheet.status }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Course</span>
+            <span class="value">{{ selectedTimesheet.course }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Recorded By</span>
+            <span class="value">{{ selectedTimesheet.recordedByName || selectedTimesheet.recordedBy }}</span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="close-modal-btn" (click)="closeViewModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  }
 </div>

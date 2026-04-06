@@ -1,44 +1,129 @@
 .header {
+
   height: 70px;
-  background: #0f172a;
+
+  background: linear-gradient(
+    90deg,
+    #020617,
+    #0f172a
+  );
+
   color: white;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  padding: 0 26px;
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(10px);
+
+  position: sticky;
+  top: 0;
+
+  z-index: 1000;
 }
+
+
+/* TITLE */
 
 .header__title {
+
   margin: 0;
-  font-size: 22px;
+
+  font-size: 24px;
+
   font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  color: #60a5fa;
+
 }
+
+
+/* RIGHT SECTION */
 
 .header__right {
+
   display: flex;
+
   align-items: center;
-  gap: 14px;
+
+  gap: 16px;
+
 }
+
+
+/* USER BADGE */
 
 .header__user {
+
   font-size: 14px;
-  color: #cbd5e1;
+
   font-weight: 500;
+
+  color: #e2e8f0;
+
+  padding: 8px 14px;
+
+  background: rgba(255,255,255,0.05);
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
 }
+
+
+/* LOGOUT BUTTON */
 
 .header__logout {
+
   border: none;
-  background: #ef4444;
+
+  background: linear-gradient(
+    90deg,
+    #ef4444,
+    #dc2626
+  );
+
   color: white;
-  padding: 8px 14px;
-  border-radius: 8px;
+
+  padding: 10px 18px;
+
+  border-radius: 12px;
+
   cursor: pointer;
+
   font-size: 14px;
+
   font-weight: 600;
-  transition: 0.2s ease;
+
+  letter-spacing: 0.4px;
+
+  transition: all 0.25s ease;
+
 }
 
+
+/* Hover Effect */
+
 .header__logout:hover {
-  background: #dc2626;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 6px 16px rgba(239,68,68,0.4);
+
+}
+
+
+/* Click Effect */
+
+.header__logout:active {
+
+  transform: scale(0.95);
+
 }

@@ -28,7 +28,8 @@ export class UserForm implements OnInit {
   roles = [
     { roleId: 4, roleName: 'Intern' },
     { roleId: 2, roleName: 'Student' },
-    { roleId: 5, roleName: 'Staff' }
+    { roleId: 5, roleName: 'Staff' },
+    { roleId: 1, roleName: 'Admin' }
   ];
 
   constructor(
@@ -43,7 +44,7 @@ export class UserForm implements OnInit {
       userName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      roleId: ['', Validators.required],
+      roleId: [''],
       userDetails: this.fb.group({
         fullName: ['', Validators.required],
         dob: ['', Validators.required],
@@ -58,13 +59,15 @@ export class UserForm implements OnInit {
       }),
     });
 
-    this.onRoleChange();
-
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
       this.userIdForEdit = id;
       this.isEditMode = true;
       this.loadUserById(id);
+    } else {
+      this.userForm.get('roleId')?.setValidators([Validators.required]);
+      this.userForm.get('roleId')?.updateValueAndValidity();
+      this.onRoleChange();
     }
   }
 
@@ -73,11 +76,18 @@ export class UserForm implements OnInit {
       next: (response) => {
         const user = response.result;
 
+        const mappedRoleId =
+          user.roleId ??
+          this.roles.find(
+            (r) => r.roleName.toLowerCase() === (user.roleName || '').toLowerCase()
+          )?.roleId ??
+          '';
+
         this.userForm.patchValue({
           userName: user.userName,
           email: user.email,
-          password: '', // usually don't patch old password
-          roleId: user.roleId,
+          password: '',
+          roleId: mappedRoleId,
           userDetails: {
             fullName: user.userDetails?.fullName || '',
             dob: user.userDetails?.dob || '',
@@ -89,9 +99,12 @@ export class UserForm implements OnInit {
           },
         });
 
-        // password optional in edit mode
         this.userForm.get('password')?.clearValidators();
         this.userForm.get('password')?.updateValueAndValidity();
+
+        this.applyRoleValidators(mappedRoleId);
+
+        this.userForm.get('roleId')?.disable();
       },
       error: (error) => {
         console.log('Error loading user by id', error);
@@ -102,26 +115,30 @@ export class UserForm implements OnInit {
 
   onRoleChange(): void {
     this.userForm.get('roleId')?.valueChanges.subscribe((selectedRoleId) => {
-      const departmentControl = this.userForm.get('userDetails.department');
-      const yearControl = this.userForm.get('userDetails.year');
-
-      departmentControl?.clearValidators();
-      yearControl?.clearValidators();
-
-      if (+selectedRoleId === 2) {
-        departmentControl?.setValidators([Validators.required]);
-        yearControl?.setValidators([Validators.required, Validators.min(1)]);
-      } else if (+selectedRoleId === 5) {
-        departmentControl?.setValidators([Validators.required]);
-        yearControl?.setValue(0);
-      } else {
-        departmentControl?.setValue('');
-        yearControl?.setValue(0);
-      }
-
-      departmentControl?.updateValueAndValidity();
-      yearControl?.updateValueAndValidity();
+      this.applyRoleValidators(selectedRoleId);
     });
+  }
+
+  applyRoleValidators(selectedRoleId: any): void {
+    const departmentControl = this.userForm.get('userDetails.department');
+    const yearControl = this.userForm.get('userDetails.year');
+
+    departmentControl?.clearValidators();
+    yearControl?.clearValidators();
+
+    if (+selectedRoleId === 2) {
+      departmentControl?.setValidators([Validators.required]);
+      yearControl?.setValidators([Validators.required, Validators.min(1)]);
+    } else if (+selectedRoleId === 5) {
+      departmentControl?.setValidators([Validators.required]);
+      yearControl?.setValue(0);
+    } else {
+      departmentControl?.setValue('');
+      yearControl?.setValue(0);
+    }
+
+    departmentControl?.updateValueAndValidity();
+    yearControl?.updateValueAndValidity();
   }
 
   onSubmit(): void {
@@ -135,13 +152,25 @@ export class UserForm implements OnInit {
 
     this.isSubmitting = true;
 
-    const formValue = this.userForm.value;
+    const formValue = this.userForm.getRawValue();
+
+    const finalRoleId =
+      this.isEditMode
+        ? Number(formValue.roleId)
+        : Number(formValue.roleId);
+
+    if (!finalRoleId || isNaN(finalRoleId)) {
+      this.errorMessage = 'Role Id is invalid.';
+      this.isSubmitting = false;
+      console.log('Invalid roleId:', formValue.roleId);
+      return;
+    }
 
     const payload: any = {
       userName: formValue.userName,
       email: formValue.email,
-      roleId: +formValue.roleId,
-      userdetailsnavigation: formValue.userDetails
+      roleId: finalRoleId,
+      userdetailsnavigation: formValue.userDetails,
     };
 
     if (!this.isEditMode) {
@@ -245,7 +274,8 @@ export class UserForm implements OnInit {
   }
 
   get selectedRoleName(): string {
-    const selectedRole = this.roles.find((r) => r.roleId == this.roleId?.value);
+    const roleValue = this.userForm.getRawValue().roleId;
+    const selectedRole = this.roles.find((r) => r.roleId == roleValue);
     return selectedRole?.roleName?.toLowerCase() || '';
   }
 }
